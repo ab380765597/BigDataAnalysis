@@ -1,8 +1,8 @@
-[guan01@master1 ~]$ hadoop fs -mkdir -p /user/guan01/project/yelp/
-[guan01@master1 ~]$ hadoop fs -mkdir -p /user/guan01/project/yelp/businessExternal
-[guan01@master1 ~]$ hadoop fs -put yelp_training_set_business.json /user/guan01/project/yelp/businessExternal
-[guan01@master1 ~]$ hadoop fs -ls /user/guan01/project/yelp/businessExternal
-[guan01@master1 ~]$ hadoop fs -put hive-serdes-1.0-SNAPSHOT.jar /user/guan01/project/yelp/
+[mike01@master1 ~]$ hadoop fs -mkdir -p /user/mike01/project/yelp/
+[mike01@master1 ~]$ hadoop fs -mkdir -p /user/mike01/project/yelp/businessExternal
+[mike01@master1 ~]$ hadoop fs -put yelp_training_set_business.json /user/mike01/project/yelp/businessExternal
+[mike01@master1 ~]$ hadoop fs -ls /user/mike01/project/yelp/businessExternal
+[mike01@master1 ~]$ hadoop fs -put hive-serdes-1.0-SNAPSHOT.jar /user/mike01/project/yelp/
 
 beeline
 
@@ -12,7 +12,7 @@ USE guan_db;
 
 DROP TABLE Yelp_Business;
 
-ADD JAR hdfs:/user/guan01/project/yelp/hive-serdes-1.0-SNAPSHOT.jar;
+ADD JAR hdfs:/user/mike01/project/yelp/hive-serdes-1.0-SNAPSHOT.jar;
 
 
 CREATE EXTERNAL TABLE Yelp_Business(
@@ -32,6 +32,6 @@ CREATE EXTERNAL TABLE Yelp_Business(
     )
 COMMENT 'DATA ABOUT businesss on yelp'
 ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
-LOCATION '/user/guan01/project/yelp/businessExternal';
+LOCATION '/user/mike01/project/yelp/businessExternal';
 
 SELECT full_address FROM Yelp_Business WHERE business_id = "FrBCYtCS_jydDjg1KsIgWQ";
