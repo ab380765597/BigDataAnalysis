@@ -1,16 +1,16 @@
 1. File preparation
-[guan01@master1 ~]$ hadoop fs -mkdir -p /user/guan01/project/yelp/
-[guan01@master1 ~]$ hadoop fs -mkdir -p /user/guan01/project/yelp/businessExternal
-[guan01@master1 ~]$ hadoop fs -put yelp_training_set_business.json /user/guan01/project/yelp/businessExternal
-[guan01@master1 ~]$ hadoop fs -ls /user/guan01/project/yelp/businessExternal
-[guan01@master1 ~]$ hadoop fs -put hive-serdes-1.0-SNAPSHOT.jar /user/guan01/project/yelp/
+[mike01@master1 ~]$ hadoop fs -mkdir -p /user/mike01/project/yelp/
+[mike01@master1 ~]$ hadoop fs -mkdir -p /user/mike01/project/yelp/businessExternal
+[mike01@master1 ~]$ hadoop fs -put yelp_training_set_business.json /user/mike01/project/yelp/businessExternal
+[mike01@master1 ~]$ hadoop fs -ls /user/mike01/project/yelp/businessExternal
+[mike01@master1 ~]$ hadoop fs -put hive-serdes-1.0-SNAPSHOT.jar /user/mike01/project/yelp/
 
 
 
 2. beeline
 !connect jdbc:hive2://192.168.1.33:10000/default
 
-ADD JAR hdfs:/user/guan01/project/yelp/hive-serdes-1.0-SNAPSHOT.jar;
+ADD JAR hdfs:/user/mike01/project/yelp/hive-serdes-1.0-SNAPSHOT.jar;
 
 USE guan_db;
 DROP TABLE HiveToHBase_Yelp_Business;
@@ -60,7 +60,7 @@ CREATE EXTERNAL TABLE Yelp_Business(
     )
 COMMENT 'DATA ABOUT businesss on yelp'
 ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
-LOCATION '/user/guan01/project/yelp/businessExternal';
+LOCATION '/user/mike01/project/yelp/businessExternal';
 
 
 
@@ -72,7 +72,7 @@ FROM Yelp_Business INSERT INTO TABLE HiveToHBase_Yelp_Business SELECT *;
 
 Note:
 If you try to load the data directly into table HiveToHBase_Yelp_Business you will get an error.
-hive> LOAD DATA INPATH '/user/guan01/project/yelp/businessExternal' OVERWRITE INTO TABLE HiveToHBase_Yelp_Business;
+hive> LOAD DATA INPATH '/user/mike01/project/yelp/businessExternal' OVERWRITE INTO TABLE HiveToHBase_Yelp_Business;
 FAILED: SemanticException [Error 10101]: A non-native table cannot be used as target for LOAD.
 
 
